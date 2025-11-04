@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($conn->connect_error){
         die("Connection failed: " . $conn->connect_error);
     }
-    $stmt = $conn->prepare("INSERT INTO list (details, user, public) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO list (details, user, public, date_posted, time_posted) VALUES (?, ?, ?, CURDATE(), CURTIME())");
     $stmt->bind_param("sss", $details, $user, $public);
     if($stmt->execute()){
         header("location:home.php");
