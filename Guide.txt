@@ -1,0 +1,39 @@
+Project Structure
+
+simple_booking/
+├── index.php        (Main page: display items/services, booking form)
+├── process_booking.php (Handles form submission and database insert)
+├── admin.php        (Simple list of all reservations - admin only)
+├── db_config.php    (Database connection credentials)
+└── booking_db.sql   (The SQL file for your database structure)
+
+
+
+
+Xampp imports:
+
+CREATE DATABASE simple_booking_db;
+
+USE simple_booking_db;
+
+CREATE TABLE items (
+    item_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE reservations (
+    reservation_id INT PRIMARY KEY AUTO_INCREMENT,
+    item_id INT NOT NULL,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(255) NOT NULL,
+    reservation_date DATE NOT NULL,
+    booking_time TIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(item_id)
+);
+
+-- Insert some sample items
+INSERT INTO items (name, price) VALUES 
+('Service 1', 99.99),
+('Service 2', 149.99);
